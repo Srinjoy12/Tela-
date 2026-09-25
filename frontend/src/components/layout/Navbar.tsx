@@ -6,8 +6,6 @@ import {
   TargetIcon as Target,
   BarChartIcon as FileBarChart,
   PersonIcon as Users,
-  GlobeIcon as Languages,
-  PersonIcon as User,
   ExitIcon as LogOut,
   ThickArrowRightIcon as Truck
 } from '@radix-ui/react-icons';
@@ -21,10 +19,10 @@ interface NavbarProps {
   activeTab: NavTab;
   setActiveTab: (tab: NavTab) => void;
   shop: Shop | null;
-  userRole: UserRole;
-  setUserRole: (role: UserRole) => void;
-  userIdentifier: string;
-  setUserIdentifier: (id: string) => void;
+  userRole?: UserRole;
+  setUserRole?: (role: UserRole) => void;
+  userIdentifier?: string;
+  setUserIdentifier?: (id: string) => void;
 
   onLogout: () => void;
 }
@@ -33,8 +31,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   setActiveTab,
   shop,
-  userRole,
-  setUserRole,
   onLogout,
 }) => {
   return (

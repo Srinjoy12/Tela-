@@ -34,7 +34,6 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
   const [ownerName, setOwnerName] = useState('');
   const [businessType, setBusinessType] = useState<BusinessType>('Saree');
   const [address, setAddress] = useState('');
-  const [setLanguage] = useState('en');
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
