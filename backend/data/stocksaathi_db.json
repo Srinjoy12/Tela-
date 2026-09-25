@@ -1,0 +1,15 @@
+{
+  "shops": [],
+  "products": [],
+  "stockMovements": [],
+  "bills": [],
+  "customers": [],
+  "goals": [],
+  "adminConfig": {
+    "id": "global_config",
+    "globalSubscriptionEnabled": false,
+    "trialActionLimit": 25,
+    "whitelistedUsers": [],
+    "platformNotice": null
+  }
+}

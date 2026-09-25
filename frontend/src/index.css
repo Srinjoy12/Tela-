@@ -1,0 +1,249 @@
+/* StockSaathi - Strict Black & White Utilitarian Minimalist Theme */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F8F8;
+  --bg-tertiary: #EFEFEF;
+  --text-primary: #000000;
+  --text-secondary: #444444;
+  --text-muted: #777777;
+  --border-color: #000000;
+  --border-subtle: #D0D0D0;
+  --accent-black: #000000;
+  --accent-white: #FFFFFF;
+  
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.4;
+    font-size: 14px;
+  }
+}
+
+/* Strict Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1.15rem; }
+
+p, label {
+  color: var(--text-primary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Utilitarian Borders & Containers */
+.bw-box {
+  background: var(--bg-primary);
+  border: 1.5px solid var(--border-color);
+  padding: 1rem;
+}
+
+.bw-box-sm {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem;
+}
+
+.bw-box-subtle {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 1rem;
+}
+
+/* Strict Black & White Buttons */
+.bw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+  border: 1.5px solid var(--border-color);
+  cursor: pointer;
+  background-color: var(--accent-black);
+  color: var(--accent-white);
+  transition: none;
+}
+
+.bw-btn:hover {
+  background-color: var(--accent-white);
+  color: var(--accent-black);
+}
+
+.bw-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-color: #DDD;
+  color: #666;
+  border-color: #999;
+}
+
+.bw-btn-outline {
+  background-color: var(--accent-white);
+  color: var(--accent-black);
+}
+
+.bw-btn-outline:hover {
+  background-color: var(--accent-black);
+  color: var(--accent-white);
+}
+
+.bw-btn-sm {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  border-width: 1px;
+}
+
+.bw-btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-width: 2px;
+}
+
+/* Form Controls */
+.bw-input, .bw-select, .bw-textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  border: 1.5px solid var(--border-color);
+  border-radius: 0;
+  outline: none;
+}
+
+.bw-input:focus, .bw-select:focus, .bw-textarea:focus {
+  outline: 2px solid var(--border-color);
+  outline-offset: 1px;
+}
+
+.bw-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
+  color: var(--text-secondary);
+}
+
+/* Strict Badges */
+.bw-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+.bw-badge-black {
+  background: var(--accent-black);
+  color: var(--accent-white);
+}
+
+.bw-badge-loss {
+  background: #000;
+  color: #FFF;
+  border: 1px solid #000;
+  text-decoration: underline;
+}
+
+/* Tabular Layouts */
+.bw-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.bw-table th {
+  background: var(--bg-secondary);
+  border-bottom: 2px solid var(--border-color);
+  border-top: 1.5px solid var(--border-color);
+  padding: 0.6rem 0.75rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.bw-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: middle;
+}
+
+.bw-table tr:hover td {
+  background-color: var(--bg-secondary);
+}
+
+/* Custom scrollbars without gradient/glow */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-primary);
+}
+
+/* Modal Overlay */
+.bw-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.bw-modal-content {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  max-width: 650px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: none;
+}
