@@ -34,33 +34,36 @@ export const Navbar: React.FC<NavbarProps> = ({
   onLogout,
 }) => {
   return (
-    <header style={{ borderBottom: '2px solid #000', background: '#FFF' }}>
+    <header className="bg-white border-b-2 border-black sticky top-0 z-40">
       {/* Top Meta Bar */}
-      <div
-        className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0"
-        style={{ padding: '0.5rem 1rem', borderBottom: '1px solid #DDD', fontSize: '0.85rem' }}
-      >
-        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-          <div className="flex items-center gap-1" style={{ fontWeight: 900, fontSize: '1rem', letterSpacing: '-0.05em' }}>
+      <div className="flex items-center justify-between gap-2 px-3 sm:px-4 py-2 border-b border-neutral-200">
+        {/* Left: Brand & Shop Info */}
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+          <span className="font-black text-lg sm:text-xl tracking-tighter text-black shrink-0 select-none">
             TELA
+          </span>
+
+          <span className="text-neutral-300 font-light select-none shrink-0">|</span>
+
+          <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 min-w-0">
+            <span className="font-bold text-sm sm:text-base text-black truncate leading-tight">
+              {shop?.name || 'My Store'}
+            </span>
+
+            <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-neutral-500 leading-tight">
+              <span className="hidden sm:inline text-neutral-300">•</span>
+              <span className="truncate max-w-[110px] sm:max-w-none">
+                {shop?.ownerName || 'Owner'}
+              </span>
+              <span className="inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold bg-neutral-100 text-neutral-700 border border-neutral-300 uppercase tracking-wider shrink-0">
+                {shop?.businessType || 'Saree'}
+              </span>
+            </div>
           </div>
-          <span className="text-muted hidden sm:inline">|</span>
-          <span style={{ fontWeight: 700, letterSpacing: '-0.02em', fontSize: '1rem' }}>
-            {shop?.name || 'My Store'}
-          </span>
-          <span className="text-muted hidden sm:inline">|</span>
-          <span style={{ fontSize: '0.8rem', color: '#555' }}>
-            {shop?.ownerName || 'Owner'} <span className="hidden sm:inline">({shop?.businessType || 'Saree'})</span>
-          </span>
         </div>
 
-        <div className="flex items-center justify-end gap-2 sm:gap-3 overflow-x-auto pb-1 sm:pb-0 hide-scrollbar" style={{ width: '100%', justifyContent: 'flex-end' }}>
-
-
-
-
-
-          {/* Logout Button */}
+        {/* Right: Logout Action */}
+        <div className="shrink-0 pl-1">
           <Button
             onClick={onLogout}
             type="secondary"
@@ -74,7 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Main Navigation Tabs */}
-      <nav className="flex" style={{ padding: '0 1rem', overflowX: 'auto' }}>
+      <nav className="flex overflow-x-auto hide-scrollbar scroll-smooth px-2 sm:px-4 bg-white">
         {[
           { id: 'DASHBOARD', label: 'Dashboard', icon: LayoutDashboard },
           { id: 'PRODUCTS', label: 'Products', icon: Package },
@@ -91,23 +94,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as NavTab)}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                padding: '0.75rem 1rem',
-                background: isActive ? '#000' : 'transparent',
-                color: isActive ? '#FFF' : '#000',
-                border: 'none',
-                borderBottom: isActive ? '3px solid #000' : '3px solid transparent',
-                fontWeight: 700,
-                fontSize: '0.85rem',
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-              }}
+              className={`inline-flex items-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-bold border-b-2 whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
+                isActive
+                  ? 'bg-black text-white border-black'
+                  : 'bg-transparent text-neutral-700 hover:text-black hover:bg-neutral-100 border-transparent'
+              }`}
             >
-              <Icon width={15} height={15} />
-              {tab.label}
+              <Icon width={14} height={14} className="shrink-0" />
+              <span>{tab.label}</span>
             </button>
           );
         })}

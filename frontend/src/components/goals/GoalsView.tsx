@@ -1,5 +1,6 @@
 import { formatINR } from '../../utils/i18n';
 import React, { useState, useEffect } from 'react';
+import { Button } from '../ui/button';
 import {
   TargetIcon as Target,
   ExclamationTriangleIcon as AlertCircle,
@@ -120,12 +121,13 @@ export const GoalsView: React.FC<GoalsViewProps> = ({
           <h1>Monthly Goals</h1>
 
         </div>
-        <button
+        <Button
           onClick={() => setIsEditing(!isEditing)}
-          className="bw-btn bw-btn-outline"
+          type="secondary"
+          prefix={<Target width={16} height={16} />}
         >
-          <Target width={16} height={16} /> {isEditing ? 'Cancel Edit' : 'Edit Target'}
-        </button>
+          {isEditing ? 'Cancel Edit' : 'Edit Target'}
+        </Button>
       </div>
 
       {/* Goal Edit Box */}
@@ -166,9 +168,9 @@ export const GoalsView: React.FC<GoalsViewProps> = ({
             </div>
           </div>
           <div className="flex justify-end gap-2">
-            <button type="submit" disabled={saving} className="bw-btn">
+            <Button htmlType="submit" disabled={saving} loading={saving}>
               {saving ? 'Saving...' : 'Update Monthly Goal'}
-            </button>
+            </Button>
           </div>
         </form>
       )}
@@ -271,9 +273,9 @@ export const GoalsView: React.FC<GoalsViewProps> = ({
             <h3>Goal & Profit History (Last 12 Months)</h3>
 
           </div>
-          <button onClick={loadGoalHistory} disabled={loadingHistory} className="bw-btn bw-btn-outline bw-btn-sm">
-            <History width={13} height={13} /> {loadingHistory ? 'Refreshing...' : 'Refresh History'}
-          </button>
+          <Button onClick={loadGoalHistory} disabled={loadingHistory} type="secondary" size="small" prefix={<History width={13} height={13} />}>
+            {loadingHistory ? 'Refreshing...' : 'Refresh History'}
+          </Button>
         </div>
 
         <div className="bw-box" style={{ padding: 0, overflowX: 'auto' }}>

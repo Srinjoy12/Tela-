@@ -3,6 +3,7 @@ import {
   Share2Icon as Share2,
   ReaderIcon as Printer
 } from '@radix-ui/react-icons';
+import { Button } from '../ui/button';
 import { BWModal } from '../common/BWModal';
 import type { Bill, Shop } from '../../types';
 
@@ -138,12 +139,12 @@ export const BillReceiptModal: React.FC<BillReceiptModalProps> = ({
 
         {/* Action Buttons */}
         <div className="flex justify-between items-center" style={{ marginTop: '0.5rem' }}>
-          <button onClick={handlePrint} className="bw-btn bw-btn-outline">
-            <Printer width={16} height={16} /> Print Receipt
-          </button>
-          <button onClick={handleShareWhatsApp} className="bw-btn">
-            <Share2 width={16} height={16} /> Share on WhatsApp
-          </button>
+          <Button onClick={handlePrint} type="secondary" prefix={<Printer width={16} height={16} />}>
+            Print Receipt
+          </Button>
+          <Button onClick={handleShareWhatsApp} type="primary" prefix={<Share2 width={16} height={16} />}>
+            Share on WhatsApp
+          </Button>
         </div>
       </div>
     </BWModal>

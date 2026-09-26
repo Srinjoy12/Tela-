@@ -6,6 +6,7 @@ import {
   ExclamationTriangleIcon as AlertCircle,
   FileTextIcon as FileSpreadsheet
 } from '@radix-ui/react-icons';
+import { Button } from '../ui/button';
 import { BWModal } from '../common/BWModal';
 import {
   downloadExcelTemplate,
@@ -135,23 +136,26 @@ export const ExcelUploadModal: React.FC<ExcelUploadModalProps> = ({
               </div>
             </div>
             <div className="flex gap-2">
-              <button
-                type="button"
+              <Button
+                htmlType="button"
                 onClick={downloadExcelTemplate}
-                className="bw-btn bw-btn-sm"
-                style={{ backgroundColor: '#000', color: '#fff' }}
+                size="small"
+                type="primary"
                 title="Download standard Excel .xlsx format"
+                prefix={<Download width={14} height={14} />}
               >
-                <Download width={14} height={14} /> Template (.xlsx)
-              </button>
-              <button
-                type="button"
+                Template (.xlsx)
+              </Button>
+              <Button
+                htmlType="button"
                 onClick={downloadCsvTemplate}
-                className="bw-btn bw-btn-sm bw-btn-outline"
+                size="small"
+                type="secondary"
                 title="Download CSV format (opens in all spreadsheet software)"
+                prefix={<Download width={14} height={14} />}
               >
-                <Download width={14} height={14} /> Template (.csv)
-              </button>
+                Template (.csv)
+              </Button>
             </div>
           </div>
 
@@ -186,12 +190,13 @@ export const ExcelUploadModal: React.FC<ExcelUploadModalProps> = ({
               <span className="bw-badge bw-badge-black">Step 2: Map Columns</span>
               <div style={{ fontWeight: 700, marginTop: '0.25rem' }}>File: {fileName} ({rawRows.length} rows detected)</div>
             </div>
-            <button
+            <Button
               onClick={() => setStep('upload')}
-              className="bw-btn bw-btn-sm bw-btn-outline"
+              size="small"
+              type="secondary"
             >
               Choose Different File
-            </button>
+            </Button>
           </div>
 
           <p style={{ fontSize: '0.85rem', color: '#555' }}>
@@ -294,12 +299,12 @@ export const ExcelUploadModal: React.FC<ExcelUploadModalProps> = ({
           </div>
 
           <div className="flex justify-between items-center" style={{ paddingTop: '0.75rem', borderTop: '1px solid #000' }}>
-            <button onClick={() => setStep('upload')} className="bw-btn bw-btn-outline">
+            <Button onClick={() => setStep('upload')} type="secondary">
               Back
-            </button>
-            <button onClick={handleRunValidation} className="bw-btn">
+            </Button>
+            <Button onClick={handleRunValidation} type="primary">
               Validate Sheet Data →
-            </button>
+            </Button>
           </div>
         </div>
       )}
@@ -314,9 +319,9 @@ export const ExcelUploadModal: React.FC<ExcelUploadModalProps> = ({
                 {validCount} Valid Sarees Ready | {errorCount} Invalid Rows
               </div>
             </div>
-            <button onClick={() => setStep('mapping')} className="bw-btn bw-btn-sm bw-btn-outline">
+            <Button onClick={() => setStep('mapping')} size="small" type="secondary">
               Adjust Mapping
-            </button>
+            </Button>
           </div>
 
           {/* Duplicate handling option */}
@@ -405,16 +410,17 @@ export const ExcelUploadModal: React.FC<ExcelUploadModalProps> = ({
           )}
 
           <div className="flex justify-between items-center" style={{ paddingTop: '0.75rem', borderTop: '1.5px solid #000' }}>
-            <button onClick={() => setStep('mapping')} className="bw-btn bw-btn-outline">
+            <Button onClick={() => setStep('mapping')} type="secondary">
               Back to Mapping
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={handleConfirmImport}
               disabled={processing || validCount === 0}
-              className="bw-btn"
+              type="primary"
+              loading={processing}
             >
               {processing ? 'Importing...' : `Confirm Import of ${validCount} Sarees`}
-            </button>
+            </Button>
           </div>
         </div>
       )}
@@ -439,9 +445,9 @@ export const ExcelUploadModal: React.FC<ExcelUploadModalProps> = ({
             </div>
           </div>
 
-          <button onClick={onClose} className="bw-btn bw-btn-lg" style={{ marginTop: '1rem' }}>
+          <Button onClick={onClose} size="large" type="primary" style={{ marginTop: '1rem' }}>
             Return to Inventory
-          </button>
+          </Button>
         </div>
       )}
     </BWModal>

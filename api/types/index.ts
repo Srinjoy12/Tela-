@@ -1,6 +1,6 @@
 // Domain & API Contract Types for Tela
 
-export type BusinessType = 'Saree' | 'Garments' | 'General' | 'Electronics' | 'Hardware' | 'Grocery' | 'Jewellery' | 'Footwear' | 'Furniture' | 'Pharmacy' | 'Other';
+export type BusinessType = 'Saree' | 'Garments' | 'General' | 'Electronics' | 'Hardware' | 'Grocery' | 'Jewellery' | 'Footwear' | 'Furniture' | 'Pharmacy' | 'Restaurant' | 'Cafe' | 'Stationery' | 'Automotive' | 'Cosmetics' | 'Other';
 
 export type UserRole = 'owner' | 'staff' | 'admin';
 

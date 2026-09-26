@@ -16,6 +16,7 @@ import type { MonthEndSummary, Bill, Product, DateRangeReport, MonthComparison }
 import { sanitizeCellFormula, saveWorkbookAsFile } from '../../utils/excel';
 import { api } from '../../../../api/client/client';
 import * as XLSX from 'xlsx';
+import { Button } from '../ui/button';
 
 interface ReportsViewProps {
   summary: MonthEndSummary;
@@ -162,12 +163,12 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
 
         </div>
         <div className="flex flex-wrap gap-2">
-          <button onClick={() => window.print()} className="bw-btn bw-btn-outline">
-            <Printer width={16} height={16} /> Print Report
-          </button>
-          <button onClick={handleExportReport} className="bw-btn">
-            <Download width={16} height={16} /> Download Monthly Excel
-          </button>
+          <Button onClick={() => window.print()} type="secondary" prefix={<Printer width={16} height={16} />}>
+            Print Report
+          </Button>
+          <Button onClick={handleExportReport} type="primary" prefix={<Download width={16} height={16} />}>
+            Download Monthly Excel
+          </Button>
         </div>
       </div>
 
@@ -183,48 +184,56 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
 
       {/* Navigation Tabs */}
       <div className="flex gap-2" style={{ borderBottom: '1.5px solid #000', paddingBottom: '0.5rem', flexWrap: 'wrap' }}>
-        <button
+        <Button
           onClick={() => setActiveTab('SUMMARY')}
-          className={`bw-btn bw-btn-sm ${activeTab === 'SUMMARY' ? 'bw-btn' : 'bw-btn-outline'}`}
+          size="small"
+          type={activeTab === 'SUMMARY' ? 'primary' : 'secondary'}
         >
           Overview & Financials
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => {
             setActiveTab('DATERANGE');
             if (!rangeReport && shopId) fetchRangeReport();
           }}
-          className={`bw-btn bw-btn-sm ${activeTab === 'DATERANGE' ? 'bw-btn' : 'bw-btn-outline'}`}
+          size="small"
+          type={activeTab === 'DATERANGE' ? 'primary' : 'secondary'}
+          prefix={<Calendar width={14} height={14} />}
         >
-          <Calendar width={14} height={14} /> Custom Date Range
-        </button>
-        <button
+          Custom Date Range
+        </Button>
+        <Button
           onClick={() => {
             setActiveTab('COMPARE');
             if (!comparison && shopId) fetchComparison();
           }}
-          className={`bw-btn bw-btn-sm ${activeTab === 'COMPARE' ? 'bw-btn' : 'bw-btn-outline'}`}
+          size="small"
+          type={activeTab === 'COMPARE' ? 'primary' : 'secondary'}
+          prefix={<BarChart2 width={14} height={14} />}
         >
-          <BarChart2 width={14} height={14} /> MoM Comparison
-        </button>
-        <button
+          MoM Comparison
+        </Button>
+        <Button
           onClick={() => setActiveTab('RESTOCK')}
-          className={`bw-btn bw-btn-sm ${activeTab === 'RESTOCK' ? 'bw-btn' : 'bw-btn-outline'}`}
+          size="small"
+          type={activeTab === 'RESTOCK' ? 'primary' : 'secondary'}
         >
           Restock ({summary.restockSuggestions.length})
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => setActiveTab('DEADSTOCK')}
-          className={`bw-btn bw-btn-sm ${activeTab === 'DEADSTOCK' ? 'bw-btn' : 'bw-btn-outline'}`}
+          size="small"
+          type={activeTab === 'DEADSTOCK' ? 'primary' : 'secondary'}
         >
           Unsold Sarees ({summary.deadStock.length})
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => setActiveTab('SALES')}
-          className={`bw-btn bw-btn-sm ${activeTab === 'SALES' ? 'bw-btn' : 'bw-btn-outline'}`}
+          size="small"
+          type={activeTab === 'SALES' ? 'primary' : 'secondary'}
         >
           Bills Issued ({bills.length})
-        </button>
+        </Button>
       </div>
 
       {/* TAB 1: FINANCIAL SUMMARY */}
@@ -323,22 +332,26 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
                   onChange={(e) => setRangeTo(e.target.value)}
                 />
               </div>
-              <button
+              <Button
                 onClick={fetchRangeReport}
                 disabled={rangeLoading || !rangeFrom || !rangeTo}
-                className="bw-btn bw-btn-sm"
+                size="small"
+                type="primary"
+                loading={rangeLoading}
               >
                 {rangeLoading ? 'Calculating...' : 'Run Range Report'}
-              </button>
+              </Button>
             </div>
 
             {rangeReport && (
-              <button
+              <Button
                 onClick={() => handleExportRangeReport(rangeReport)}
-                className="bw-btn bw-btn-sm bw-btn-outline"
+                size="small"
+                type="secondary"
+                prefix={<Download width={14} height={14} />}
               >
-                <Download width={14} height={14} /> Download Range Excel
-              </button>
+                Download Range Excel
+              </Button>
             )}
           </div>
 
@@ -445,13 +458,15 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
                 value={compareMonth}
                 onChange={(e) => setCompareMonth(e.target.value)}
               />
-              <button
+              <Button
                 onClick={fetchComparison}
                 disabled={compareLoading || !compareMonth}
-                className="bw-btn bw-btn-sm"
+                size="small"
+                type="primary"
+                loading={compareLoading}
               >
                 {compareLoading ? 'Comparing...' : 'Compare Months'}
-              </button>
+              </Button>
             </div>
             <span className="text-muted" style={{ fontSize: '0.8rem' }}>
               Compares against immediately preceding calendar month

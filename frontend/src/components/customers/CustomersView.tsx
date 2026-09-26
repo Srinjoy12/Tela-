@@ -8,6 +8,7 @@ import {
   ChevronLeftIcon as ChevronLeft,
   ChevronRightIcon as ChevronRight
 } from '@radix-ui/react-icons';
+import { Button } from '../ui/button';
 import { BWModal } from '../common/BWModal';
 import type { Customer, CustomerTransaction } from '../../types';
 import { api } from '../../../../api/client/client';
@@ -185,9 +186,9 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
           <h1>Customers</h1>
 
         </div>
-        <button onClick={() => setIsAddModalOpen(true)} className="bw-btn">
-          <Plus width={16} height={16} /> Add New Customer
-        </button>
+        <Button onClick={() => setIsAddModalOpen(true)} type="primary" prefix={<Plus width={16} height={16} />}>
+          Add New Customer
+        </Button>
       </div>
 
       {/* Summary Box */}
@@ -231,35 +232,39 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
             }}
           />
           {searchTerm && (
-            <button
+            <Button
               onClick={() => setSearchTerm('')}
-              className="bw-btn bw-btn-outline bw-btn-sm"
-              style={{ padding: '1px 6px', fontSize: '0.75rem' }}
+              type="secondary"
+              size="tiny"
             >
               Clear
-            </button>
+            </Button>
           )}
         </div>
 
         {totalPages > 1 && (
           <div className="flex items-center gap-2">
-            <button
+            <Button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage <= 1 || loadingList}
-              className="bw-btn bw-btn-outline bw-btn-sm"
+              type="secondary"
+              size="small"
+              prefix={<ChevronLeft width={14} height={14} />}
             >
-              <ChevronLeft width={14} height={14} /> Prev
-            </button>
+              Prev
+            </Button>
             <span className="mono" style={{ fontSize: '0.85rem' }}>
               Page {currentPage} of {totalPages}
             </span>
-            <button
+            <Button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage >= totalPages || loadingList}
-              className="bw-btn bw-btn-outline bw-btn-sm"
+              type="secondary"
+              size="small"
+              suffix={<ChevronRight width={14} height={14} />}
             >
-              Next <ChevronRight width={14} height={14} />
-            </button>
+              Next
+            </Button>
           </div>
         )}
       </div>
@@ -306,41 +311,47 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                   </td>
                   <td>
                     <div className="flex items-center justify-center gap-2">
-                      <button
+                      <Button
                         onClick={() => handleOpenHistory(customer)}
-                        className="bw-btn bw-btn-sm bw-btn-outline"
+                        type="secondary"
+                        size="small"
                         title="View chronological ledger audit history"
+                        prefix={<History width={13} height={13} />}
                       >
-                        <History width={13} height={13} /> Ledger History
-                      </button>
-                      <button
+                        Ledger History
+                      </Button>
+                      <Button
                         onClick={() => {
                           setActiveCustomer(customer);
                           setActionType('PAYMENT');
                         }}
-                        className="bw-btn bw-btn-sm bw-btn-outline"
+                        type="secondary"
+                        size="small"
                         title="Record payment received"
                       >
                         Payment
-                      </button>
-                      <button
+                      </Button>
+                      <Button
                         onClick={() => {
                           setActiveCustomer(customer);
                           setActionType('CREDIT');
                         }}
-                        className="bw-btn bw-btn-sm bw-btn-outline"
+                        type="secondary"
+                        size="small"
                         title="Add udhaar credit"
                       >
                         Credit
-                      </button>
+                      </Button>
                       {customer.balanceDue > 0 && (
-                        <button
+                        <Button
                           onClick={() => handleSendReminder(customer)}
-                          className="bw-btn bw-btn-sm"
+                          type="primary"
+                          size="small"
                           title="Send payment reminder on WhatsApp"
+                          prefix={<MessageSquare width={13} height={13} />}
                         >
-                          <MessageSquare width={13} height={13} /> WhatsApp
-                        </button>
+                          WhatsApp
+                        </Button>
                       )}
                     </div>
                   </td>
@@ -392,12 +403,12 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
             />
           </div>
           <div className="flex justify-end gap-2" style={{ marginTop: '0.5rem' }}>
-            <button type="button" onClick={() => setIsAddModalOpen(false)} className="bw-btn bw-btn-outline">
+            <Button htmlType="button" onClick={() => setIsAddModalOpen(false)} type="secondary">
               Cancel
-            </button>
-            <button type="submit" className="bw-btn">
+            </Button>
+            <Button htmlType="submit" type="primary">
               Save Customer
-            </button>
+            </Button>
           </div>
         </form>
       </BWModal>
@@ -446,12 +457,12 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
             </div>
 
             <div className="flex justify-between items-center" style={{ marginTop: '0.5rem' }}>
-              <button type="button" onClick={() => setActiveCustomer(null)} className="bw-btn bw-btn-outline">
+              <Button htmlType="button" onClick={() => setActiveCustomer(null)} type="secondary">
                 Cancel
-              </button>
-              <button type="submit" className="bw-btn">
+              </Button>
+              <Button htmlType="submit" type="primary">
                 Confirm {actionType === 'PAYMENT' ? 'Payment' : 'Credit'}
-              </button>
+              </Button>
             </div>
           </form>
         </BWModal>
@@ -532,9 +543,9 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
             )}
 
             <div className="flex justify-end" style={{ marginTop: '0.5rem' }}>
-              <button onClick={() => setHistoryCustomer(null)} className="bw-btn">
+              <Button onClick={() => setHistoryCustomer(null)} type="primary">
                 Close Ledger
-              </button>
+              </Button>
             </div>
           </div>
         </BWModal>

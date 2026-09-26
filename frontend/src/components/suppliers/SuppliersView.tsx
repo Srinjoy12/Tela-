@@ -12,6 +12,7 @@ import {
   ChevronRightIcon as ChevronRight
 } from '@radix-ui/react-icons';
 import { BWModal } from '../common/BWModal';
+import { Button } from '../ui/button';
 import type { Supplier, PurchaseOrder, Product } from '../../types';
 import { api } from '../../../../api/client/client';
 import { formatINR, formatDate } from '../../utils/i18n';
@@ -309,12 +310,12 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
 
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={() => handleOpenPurchaseModal()} className="bw-btn bw-btn-outline">
-            <PackageCheck width={16} height={16} /> New Purchase Order
-          </button>
-          <button onClick={() => handleOpenSupplierModal()} className="bw-btn">
-            <Plus width={16} height={16} /> Add Supplier
-          </button>
+          <Button onClick={() => handleOpenPurchaseModal()} type="secondary" prefix={<PackageCheck width={16} height={16} />}>
+            New Purchase Order
+          </Button>
+          <Button onClick={() => handleOpenSupplierModal()} type="primary" prefix={<Plus width={16} height={16} />}>
+            Add Supplier
+          </Button>
         </div>
       </div>
 
@@ -362,20 +363,22 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
 
       {/* Sub Tabs */}
       <div className="flex gap-2" style={{ borderBottom: '2px solid #000', paddingBottom: '0.5rem' }}>
-        <button
+        <Button
           onClick={() => setActiveTab('SUPPLIERS')}
-          className={`bw-btn ${activeTab === 'SUPPLIERS' ? 'bw-btn-black' : 'bw-btn-outline'}`}
-          style={{ fontSize: '0.85rem' }}
+          type={activeTab === 'SUPPLIERS' ? 'primary' : 'secondary'}
+          size="small"
+          prefix={<Truck width={14} height={14} />}
         >
-          <Truck width={14} height={14} /> Suppliers Directory ({suppliers.length})
-        </button>
-        <button
+          Suppliers Directory ({suppliers.length})
+        </Button>
+        <Button
           onClick={() => setActiveTab('PURCHASES')}
-          className={`bw-btn ${activeTab === 'PURCHASES' ? 'bw-btn-black' : 'bw-btn-outline'}`}
-          style={{ fontSize: '0.85rem' }}
+          type={activeTab === 'PURCHASES' ? 'primary' : 'secondary'}
+          size="small"
+          prefix={<ReceiptText width={14} height={14} />}
         >
-          <ReceiptText width={14} height={14} /> Purchase Orders & Restocking
-        </button>
+          Purchase Orders & Restocking
+        </Button>
       </div>
 
       {/* TAB 1: SUPPLIERS DIRECTORY */}
@@ -395,9 +398,9 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
               <Search width={14} height={14} className="text-muted" style={{ position: 'absolute', left: '0.6rem', top: '50%', transform: 'translateY(-50%)' }} />
             </div>
             {searchTerm && (
-              <button onClick={() => setSearchTerm('')} className="bw-btn bw-btn-outline bw-btn-sm">
+              <Button onClick={() => setSearchTerm('')} type="secondary" size="small">
                 Clear
-              </button>
+              </Button>
             )}
           </div>
 
@@ -478,27 +481,31 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                         </td>
                         <td>
                           <div className="flex items-center justify-center gap-1">
-                            <button
+                            <Button
                               onClick={() => handleOpenPurchaseModal(supp)}
-                              className="bw-btn bw-btn-sm bw-btn-outline"
+                              type="secondary"
+                              size="small"
                               title="Record Restock / Purchase from this supplier"
+                              prefix={<PackageCheck width={12} height={12} />}
                             >
-                              <PackageCheck width={12} height={12} /> Restock
-                            </button>
-                            <button
+                              Restock
+                            </Button>
+                            <Button
                               onClick={() => handleOpenSupplierModal(supp)}
-                              className="bw-btn bw-btn-sm bw-btn-outline"
+                              type="secondary"
+                              size="small"
                               title="Edit Supplier"
                             >
                               Edit
-                            </button>
-                            <button
+                            </Button>
+                            <Button
                               onClick={() => handleDeleteSupplier(supp)}
-                              className="bw-btn bw-btn-sm bw-btn-outline"
+                              type="secondary"
+                              size="small"
                               title="Delete Supplier"
                             >
                               Delete
-                            </button>
+                            </Button>
                           </div>
                         </td>
                       </tr>
@@ -537,23 +544,27 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
-              <button
+              <Button
                 onClick={() => setPurchasePage((p) => Math.max(1, p - 1))}
                 disabled={purchasePage <= 1}
-                className="bw-btn bw-btn-outline bw-btn-sm"
+                type="secondary"
+                size="small"
+                prefix={<ChevronLeft width={14} height={14} />}
               >
-                <ChevronLeft width={14} height={14} /> Prev
-              </button>
+                Prev
+              </Button>
               <span className="mono" style={{ fontSize: '0.85rem' }}>
                 Page {purchasePage} of {purchaseTotalPages || 1} ({totalPurchasesCount} orders)
               </span>
-              <button
+              <Button
                 onClick={() => setPurchasePage((p) => Math.min(purchaseTotalPages, p + 1))}
                 disabled={purchasePage >= purchaseTotalPages}
-                className="bw-btn bw-btn-outline bw-btn-sm"
+                type="secondary"
+                size="small"
+                suffix={<ChevronRight width={14} height={14} />}
               >
-                Next <ChevronRight width={14} height={14} />
-              </button>
+                Next
+              </Button>
             </div>
           </div>
 
@@ -637,13 +648,15 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                         </td>
                         <td className="text-center">
                           {isDue ? (
-                            <button
+                            <Button
                               onClick={() => handleOpenPayModal(po)}
-                              className="bw-btn bw-btn-sm"
+                              type="primary"
+                              size="small"
                               title="Record payment towards this purchase order"
+                              prefix={<DollarSign width={12} height={12} />}
                             >
-                              <DollarSign width={12} height={12} /> Pay
-                            </button>
+                              Pay
+                            </Button>
                           ) : (
                             <span className="text-muted" style={{ fontSize: '0.75rem' }}>Settled</span>
                           )}
@@ -724,12 +737,12 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
           </div>
 
           <div className="flex justify-between items-center" style={{ marginTop: '0.5rem', paddingTop: '0.75rem', borderTop: '1.5px solid #000' }}>
-            <button type="button" onClick={() => setIsSupplierModalOpen(false)} className="bw-btn bw-btn-outline">
+            <Button htmlType="button" onClick={() => setIsSupplierModalOpen(false)} type="secondary">
               Cancel
-            </button>
-            <button type="submit" disabled={savingSupplier} className="bw-btn">
+            </Button>
+            <Button htmlType="submit" disabled={savingSupplier} type="primary" loading={savingSupplier}>
               {savingSupplier ? 'Saving...' : supplierToEdit ? 'Update Supplier' : 'Save Supplier'}
-            </button>
+            </Button>
           </div>
         </form>
       </BWModal>
@@ -876,22 +889,22 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                 onChange={(e) => setPoAmountPaid(Math.min(poTotalCost, Math.max(0, parseFloat(e.target.value) || 0)))}
               />
               <div className="flex gap-2" style={{ marginTop: '0.25rem' }}>
-                <button
-                  type="button"
+                <Button
+                  htmlType="button"
                   onClick={() => setPoAmountPaid(poTotalCost)}
-                  className="bw-btn bw-btn-sm bw-btn-outline"
-                  style={{ fontSize: '0.7rem', padding: '1px 6px' }}
+                  type="secondary"
+                  size="tiny"
                 >
                   Full Paid
-                </button>
-                <button
-                  type="button"
+                </Button>
+                <Button
+                  htmlType="button"
                   onClick={() => setPoAmountPaid(0)}
-                  className="bw-btn bw-btn-sm bw-btn-outline"
-                  style={{ fontSize: '0.7rem', padding: '1px 6px' }}
+                  type="secondary"
+                  size="tiny"
                 >
                   Full Credit (0)
-                </button>
+                </Button>
               </div>
             </div>
             <div>
@@ -941,12 +954,12 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
           </div>
 
           <div className="flex justify-between items-center" style={{ marginTop: '0.5rem', paddingTop: '0.75rem', borderTop: '1.5px solid #000' }}>
-            <button type="button" onClick={() => setIsPurchaseModalOpen(false)} className="bw-btn bw-btn-outline">
+            <Button htmlType="button" onClick={() => setIsPurchaseModalOpen(false)} type="secondary">
               Cancel
-            </button>
-            <button type="submit" disabled={savingPurchase} className="bw-btn">
+            </Button>
+            <Button htmlType="submit" disabled={savingPurchase} type="primary" loading={savingPurchase}>
               {savingPurchase ? 'Recording Order...' : 'Confirm & Inward Stock'}
-            </button>
+            </Button>
           </div>
         </form>
       </BWModal>
@@ -996,19 +1009,19 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
           </div>
 
           <div className="flex justify-between items-center" style={{ marginTop: '0.5rem', paddingTop: '0.75rem', borderTop: '1.5px solid #000' }}>
-            <button
-              type="button"
+            <Button
+              htmlType="button"
               onClick={() => {
                 setIsPayModalOpen(false);
                 setActivePoToPay(null);
               }}
-              className="bw-btn bw-btn-outline"
+              type="secondary"
             >
               Cancel
-            </button>
-            <button type="submit" disabled={savingPayment} className="bw-btn">
+            </Button>
+            <Button htmlType="submit" disabled={savingPayment} type="primary" loading={savingPayment}>
               {savingPayment ? 'Processing...' : `Pay ${formatINR(payAmount)}`}
-            </button>
+            </Button>
           </div>
         </form>
       </BWModal>

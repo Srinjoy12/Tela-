@@ -7,6 +7,7 @@ import {
   ArrowLeftIcon as ArrowLeft,
   ExclamationTriangleIcon as AlertOctagon
 } from '@radix-ui/react-icons';
+import { Button } from '../ui/button';
 import type { AdminConfig, Shop, Product, Bill } from '../../types';
 
 interface AdminDashboardProps {
@@ -107,29 +108,32 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            type="button"
+          <Button
+            htmlType="button"
             onClick={async () => {
               if (confirm('CAUTION: Are you sure you want to completely clear the entire database (all shops, products, bills, customers)?')) {
                 await onClearAllDatabase();
                 alert('Database cleared successfully!');
               }
             }}
-            className="bw-btn bw-btn-sm bw-btn-outline"
-            style={{ borderColor: '#000', color: '#000' }}
+            type="error"
+            size="small"
             title="Reset database to empty state"
+            prefix={<AlertOctagon width={14} height={14} />}
           >
-            <AlertOctagon width={14} height={14} /> Clear All Database
-          </button>
+            Clear All Database
+          </Button>
 
-          <button
-            type="button"
+          <Button
+            htmlType="button"
             onClick={onExitToShop}
-            className="bw-btn bw-btn-sm"
+            size="small"
+            type="primary"
             title="Switch back to standard vendor counter app"
+            prefix={<ArrowLeft width={14} height={14} />}
           >
-            <ArrowLeft width={14} height={14} /> Back to Shop Counter
-          </button>
+            Back to Shop Counter
+          </Button>
         </div>
       </div>
 
@@ -160,26 +164,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
 
         <div>
-          <button
+          <Button
             onClick={handleToggleGlobalSubscription}
             disabled={isUpdating}
-            className="bw-btn bw-btn-lg"
-            style={{
-              background: adminConfig.globalSubscriptionEnabled ? '#000' : '#FFF',
-              color: adminConfig.globalSubscriptionEnabled ? '#FFF' : '#000',
-              border: '2px solid #000',
-            }}
+            size="large"
+            type={adminConfig.globalSubscriptionEnabled ? 'primary' : 'secondary'}
+            loading={isUpdating}
+            prefix={adminConfig.globalSubscriptionEnabled ? <ToggleRight width={24} height={24} /> : <ToggleLeft width={24} height={24} />}
           >
-            {adminConfig.globalSubscriptionEnabled ? (
-              <>
-                <ToggleRight width={24} height={24} /> Turn OFF Subscription (Make 100% Free)
-              </>
-            ) : (
-              <>
-                <ToggleLeft width={24} height={24} /> Turn ON Subscription Paywall
-              </>
-            )}
-          </button>
+            {adminConfig.globalSubscriptionEnabled 
+              ? 'Turn OFF Subscription (Make 100% Free)' 
+              : 'Turn ON Subscription Paywall'}
+          </Button>
         </div>
       </div>
 
@@ -263,9 +259,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             />
           </div>
           <div>
-            <button type="submit" className="bw-btn" style={{ width: '100%' }}>
-              <UserPlus width={16} height={16} /> Grant Free Access
-            </button>
+            <Button htmlType="submit" type="primary" fullWidth prefix={<UserPlus width={16} height={16} />}>
+              Grant Free Access
+            </Button>
           </div>
         </form>
 
@@ -304,13 +300,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       <span className="bw-badge bw-badge-black">VIP LIFETIME FREE</span>
                     </td>
                     <td className="text-center">
-                      <button
+                      <Button
                         onClick={() => onRemoveWhitelistedUser(user.id)}
-                        className="bw-btn bw-btn-sm bw-btn-outline"
+                        type="secondary"
+                        size="small"
                         title="Remove from whitelist"
-                      >
-                        <Trash2 width={13} height={13} />
-                      </button>
+                        prefix={<Trash2 width={13} height={13} />}
+                      />
                     </td>
                   </tr>
                 ))
@@ -339,9 +335,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               onChange={(e) => setActionLimit(parseInt(e.target.value) || 25)}
             />
           </div>
-          <button type="submit" disabled={isUpdating} className="bw-btn" style={{ alignSelf: 'flex-end' }}>
+          <Button htmlType="submit" disabled={isUpdating} type="primary" loading={isUpdating} style={{ alignSelf: 'flex-end' }}>
             Save Threshold Limit
-          </button>
+          </Button>
         </form>
       </div>
 

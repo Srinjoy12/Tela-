@@ -427,6 +427,11 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 <option value="Footwear">Shoes & Footwear</option>
                 <option value="Furniture">Furniture & Home Decor</option>
                 <option value="Pharmacy">Pharmacy & Healthcare</option>
+                <option value="Restaurant">Restaurant & Dining</option>
+                <option value="Cafe">Cafe & Bakery</option>
+                <option value="Stationery">Stationery & Books</option>
+                <option value="Automotive">Automotive & Spares</option>
+                <option value="Cosmetics">Cosmetics & Beauty</option>
                 <option value="Other">Other Business Type</option>
               </select>
             </div>

@@ -10,6 +10,7 @@ import {
   IdCardIcon as Banknote,
   MobileIcon as Smartphone
 } from '@radix-ui/react-icons';
+import { Button } from '../ui/button';
 import type { Product, BillItem, PaymentMode, UserRole, Bill } from '../../types';
 interface BillingViewProps {
   products: Product[];
@@ -246,9 +247,9 @@ export const BillingView: React.FC<BillingViewProps> = ({
                       <span className="mono" style={{ fontWeight: 700 }}>
                         {formatINR(p.sellingPrice)}
                       </span>
-                      <button className="bw-btn bw-btn-sm">
-                        <Plus width={14} height={14} /> Add
-                      </button>
+                      <Button size="small" type="primary" prefix={<Plus width={14} height={14} />}>
+                        Add
+                      </Button>
                     </div>
                   </div>
                 ))}
@@ -345,13 +346,13 @@ export const BillingView: React.FC<BillingViewProps> = ({
                           )}
                         </td>
                         <td className="text-center">
-                          <button
+                          <Button
                             onClick={() => handleRemoveItem(index)}
-                            className="bw-btn bw-btn-sm bw-btn-outline"
+                            size="small"
+                            type="secondary"
                             style={{ padding: '0.25rem' }}
-                          >
-                            <Trash2 width={13} height={13} />
-                          </button>
+                            prefix={<Trash2 width={13} height={13} />}
+                          />
                         </td>
                       </tr>
                     );
@@ -366,13 +367,15 @@ export const BillingView: React.FC<BillingViewProps> = ({
             <span className="bw-label">Quick 1-Tap Add (Top Sarees in Shop)</span>
             <div className="flex gap-2" style={{ flexWrap: 'wrap', marginTop: '0.4rem' }}>
               {products.slice(0, 4).map((p) => (
-                <button
+                <Button
                   key={p.id}
                   onClick={() => handleAddToCart(p)}
-                  className="bw-btn bw-btn-sm bw-btn-outline"
+                  size="small"
+                  type="secondary"
+                  prefix={<Plus width={13} height={13} />}
                 >
-                  <Plus width={13} height={13} /> {p.code}: {p.name.split(',')[0]} ({formatINR(p.sellingPrice)})
-                </button>
+                  {p.code}: {p.name.split(',')[0]} ({formatINR(p.sellingPrice)})
+                </Button>
               ))}
             </div>
           </div>
@@ -412,22 +415,24 @@ export const BillingView: React.FC<BillingViewProps> = ({
               <div className="flex justify-between items-center">
                 <label className="bw-label">Overall Bill Discount</label>
                 <div className="flex gap-1" style={{ marginBottom: '4px' }}>
-                  <button
-                    type="button"
+                  <Button
+                    htmlType="button"
                     onClick={() => setDiscountType('FLAT')}
-                    className={`bw-btn bw-btn-sm ${discountType === 'FLAT' ? 'bw-btn' : 'bw-btn-outline'}`}
+                    size="small"
+                    type={discountType === 'FLAT' ? 'primary' : 'secondary'}
                     style={{ padding: '2px 6px', fontSize: '0.75rem' }}
                   >
                     ₹ Flat
-                  </button>
-                  <button
-                    type="button"
+                  </Button>
+                  <Button
+                    htmlType="button"
                     onClick={() => setDiscountType('PERCENT')}
-                    className={`bw-btn bw-btn-sm ${discountType === 'PERCENT' ? 'bw-btn' : 'bw-btn-outline'}`}
+                    size="small"
+                    type={discountType === 'PERCENT' ? 'primary' : 'secondary'}
                     style={{ padding: '2px 6px', fontSize: '0.75rem' }}
                   >
                     %
-                  </button>
+                  </Button>
                 </div>
               </div>
               <input
@@ -445,19 +450,22 @@ export const BillingView: React.FC<BillingViewProps> = ({
               <label className="bw-label">Payment Mode</label>
               <div className="grid grid-cols-3 gap-2">
                 {(['Cash', 'UPI', 'Card', 'Credit', 'Part'] as PaymentMode[]).map((mode) => (
-                  <button
+                  <Button
                     key={mode}
-                    type="button"
+                    htmlType="button"
                     onClick={() => setPaymentMode(mode)}
-                    className={`bw-btn bw-btn-sm ${paymentMode === mode ? 'bw-btn' : 'bw-btn-outline'}`}
+                    size="small"
+                    type={paymentMode === mode ? 'primary' : 'secondary'}
+                    prefix={
+                      mode === 'Cash' ? <Banknote width={14} height={14} /> :
+                      mode === 'UPI' ? <Smartphone width={14} height={14} /> :
+                      mode === 'Card' ? <CreditCard width={14} height={14} /> :
+                      mode === 'Credit' ? <UserCheck width={14} height={14} /> :
+                      mode === 'Part' ? <span className="mono" style={{ fontSize: '0.75rem', fontWeight: 800 }}>½</span> : null
+                    }
                   >
-                    {mode === 'Cash' && <Banknote width={14} height={14} />}
-                    {mode === 'UPI' && <Smartphone width={14} height={14} />}
-                    {mode === 'Card' && <CreditCard width={14} height={14} />}
-                    {mode === 'Credit' && <UserCheck width={14} height={14} />}
-                    {mode === 'Part' && <span className="mono" style={{ fontSize: '0.75rem', fontWeight: 800 }}>½</span>}
                     {mode}
-                  </button>
+                  </Button>
                 ))}
               </div>
 
@@ -534,14 +542,16 @@ export const BillingView: React.FC<BillingViewProps> = ({
             </div>
 
             {/* Save & Generate Bill Button */}
-            <button
+            <Button
               onClick={handleSaveBill}
               disabled={saving || cartItems.length === 0}
-              className="bw-btn bw-btn-lg"
-              style={{ width: '100%' }}
+              size="large"
+              type="primary"
+              loading={saving}
+              fullWidth
             >
               {saving ? 'Creating Bill...' : `Save & Issue Bill (${formatINR(finalAmount)})`}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -558,23 +568,23 @@ export const BillingView: React.FC<BillingViewProps> = ({
             </div>
           </div>
           <div className="flex gap-2">
-            <button
+            <Button
               onClick={() => {
                 const message = `*INVOICE: Tela*%0ABill: ${completedBill.billNo}%0ATotal: ${formatINR(completedBill.total)}%0AThank you!`;
                 window.open(`https://wa.me/?text=${message}`, '_blank');
               }}
-              className="bw-btn bw-btn-outline"
+              type="secondary"
               style={{ background: '#FFF', color: '#000' }}
             >
               Share WhatsApp
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => setCompletedBill(null)}
-              className="bw-btn"
+              type="primary"
               style={{ borderColor: '#FFF' }}
             >
               Start Next Bill
-            </button>
+            </Button>
           </div>
         </div>
       )}

@@ -3,6 +3,7 @@ import {
   LockClosedIcon as Lock,
   StarIcon as Gift
 } from '@radix-ui/react-icons';
+import { Button } from '../ui/button';
 import { BWModal } from '../common/BWModal';
 
 interface PaywallModalProps {
@@ -89,14 +90,17 @@ export const PaywallModal: React.FC<PaywallModalProps> = ({
             <li>Monthly profit pace & goal tracking</li>
           </ul>
 
-          <button
+          <Button
             onClick={handleSimulatePayment}
             disabled={isProcessing}
-            className="bw-btn bw-btn-lg"
-            style={{ width: '100%', marginTop: '0.75rem' }}
+            size="large"
+            type="primary"
+            fullWidth
+            loading={isProcessing}
+            style={{ marginTop: '0.75rem' }}
           >
             {isProcessing ? 'Activating License...' : 'Pay ₹499 via UPI / Card (Lifetime Access)'}
-          </button>
+          </Button>
         </div>
 
         {/* Family / Admin Whitelist Bypass Code */}
@@ -117,9 +121,9 @@ export const PaywallModal: React.FC<PaywallModalProps> = ({
               value={familyCode}
               onChange={(e) => setFamilyCode(e.target.value)}
             />
-            <button type="submit" className="bw-btn bw-btn-outline" style={{ whiteSpace: 'nowrap' }}>
+            <Button htmlType="submit" type="secondary" style={{ whiteSpace: 'nowrap' }}>
               Unlock Free
-            </button>
+            </Button>
           </form>
 
           {codeMessage && (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Spinner } from "./spinner";
+import { DotmSquare4 } from "./dotm-square-4";
 
 const sizes = [
   {
@@ -107,7 +107,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       {...rest}
     >
       {loading ? (
-        <Spinner size={size === "large" ? 20 : size === "tiny" ? 14 : 16} />
+        <div className="flex items-center justify-center h-full">
+          <DotmSquare4 size={size === "large" ? 20 : size === "tiny" ? 14 : 16} dotSize={size === "large" ? 3 : 2} speed={1.35} />
+        </div>
       ) : prefix}
       {children && (
         <span className="truncate">
