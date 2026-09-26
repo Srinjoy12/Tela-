@@ -372,12 +372,6 @@ router.post('/bulk', async (req: AuthenticatedRequest, res) => {
       const category = (item.category ? String(item.category).trim() : '') || 'Saree';
       const supplier = item.supplier ? String(item.supplier).trim() : null;
       const colorNotes = item.colorNotes ? String(item.colorNotes).trim() : null;
-      
-      const histSoldQty = Math.max(0, Number(item.historicalSoldQuantity) || 0);
-      const histSoldPrice = Math.max(0, Number(item.historicalSoldPrice) || 0);
-
-      let targetProductId = null;
-      let targetProductCode = '';
 
       if (existing) {
         if (duplicateStrategy === 'skip') {
@@ -401,8 +395,6 @@ router.post('/bulk', async (req: AuthenticatedRequest, res) => {
             existing.cost_price = itemCost;
             existing.selling_price = itemSelling;
             updated++;
-            targetProductId = existing.id;
-            targetProductCode = existing.code;
           } else {
             console.error('[Bulk Import] Overwrite error for', existing.code, updErr);
           }
@@ -439,8 +431,6 @@ router.post('/bulk', async (req: AuthenticatedRequest, res) => {
                 date: new Date().toISOString(),
               });
             }
-            targetProductId = existing.id;
-            targetProductCode = existing.code;
           } else {
             console.error('[Bulk Import] Add Qty error for', existing.code, updErr);
           }
@@ -488,63 +478,9 @@ router.post('/bulk', async (req: AuthenticatedRequest, res) => {
               date: new Date().toISOString(),
             });
           }
-          targetProductId = newId;
-          targetProductCode = finalCode;
         } else {
           console.error('[Bulk Import] Insert error for', finalCode, insErr);
         }
-      }
-
-      if (targetProductId && histSoldQty > 0) {
-        // Create historical bill to record profit
-        const billId = `bill_hist_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
-        const billTotal = histSoldQty * histSoldPrice;
-        const billCost = histSoldQty * itemCost;
-        const billProfit = billTotal - billCost;
-        
-        await supabaseServer.from('bills').insert({
-          id: billId,
-          shop_id: shopId,
-          bill_no: `HIST-${timestamp}-${skuCounter}`,
-          date: new Date().toISOString(),
-          customer_name: 'Historical Import',
-          items: [{
-            id: `item_hist_${Date.now()}`,
-            billId: billId,
-            productId: targetProductId,
-            productCode: targetProductCode,
-            productName: cleanName,
-            quantity: histSoldQty,
-            listedPrice: itemSelling || histSoldPrice,
-            soldPrice: histSoldPrice,
-            costPriceAtSale: itemCost,
-            profit: billProfit
-          }],
-          subtotal: billTotal,
-          discount: 0,
-          total: billTotal,
-          total_cost: billCost,
-          total_profit: billProfit,
-          payment_mode: 'Cash',
-          amount_paid: billTotal,
-          status: 'completed',
-          created_at: new Date().toISOString(),
-          created_by: 'owner'
-        });
-
-        // Record stock movement for historical sale to keep audit intact
-        await supabaseServer.from('stock_movements').insert({
-          id: `mov_hist_sale_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
-          shop_id: shopId,
-          product_id: targetProductId,
-          product_name: cleanName,
-          type: 'sale',
-          quantity_change: -histSoldQty,
-          previous_quantity: itemQty + histSoldQty,
-          new_quantity: itemQty,
-          reason: 'Historical sale from Excel import',
-          date: new Date().toISOString(),
-        });
       }
     }
 

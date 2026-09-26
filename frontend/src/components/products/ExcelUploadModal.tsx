@@ -296,28 +296,6 @@ export const ExcelUploadModal: React.FC<ExcelUploadModalProps> = ({
                 {headers.map((h) => <option key={h} value={h}>{h}</option>)}
               </select>
             </div>
-            <div>
-              <label className="bw-label">Already Sold Qty (Past)</label>
-              <select
-                className="bw-select"
-                value={mapping.historicalSoldQuantity}
-                onChange={(e) => setMapping({ ...mapping, historicalSoldQuantity: e.target.value })}
-              >
-                <option value="">-- None --</option>
-                {headers.map((h) => <option key={h} value={h}>{h}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="bw-label">Sold Price (Past)</label>
-              <select
-                className="bw-select"
-                value={mapping.historicalSoldPrice}
-                onChange={(e) => setMapping({ ...mapping, historicalSoldPrice: e.target.value })}
-              >
-                <option value="">-- None --</option>
-                {headers.map((h) => <option key={h} value={h}>{h}</option>)}
-              </select>
-            </div>
           </div>
 
           <div className="flex justify-between items-center" style={{ paddingTop: '0.75rem', borderTop: '1px solid #000' }}>

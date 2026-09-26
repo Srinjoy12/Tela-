@@ -34,8 +34,6 @@ export interface Product {
   colorNotes?: string;
   photo?: string;
   archived?: boolean;
-  historicalSoldQuantity?: number;
-  historicalSoldPrice?: number;
   createdAt: string;
   updatedAt: string;
 }
