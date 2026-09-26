@@ -178,6 +178,16 @@ export const api = {
       request<GoalHistoryItem[]>(`/reports/goal-history?shopId=${shopId}&months=${months}`),
   },
 
+  historical: {
+    getStats: (shopId: string) =>
+      request<{ totalInvested: number; totalSales: number; totalProfit: number; totalPieces: number }>(`/historical/stats?shopId=${shopId}`),
+    upload: (shopId: string, rows: any[]) =>
+      request<{ recordsProcessed: number }>('/historical/upload', {
+        method: 'POST',
+        body: JSON.stringify({ shopId, rows }),
+      }),
+  },
+
   admin: {
     getConfig: () => request<AdminConfig>('/admin/config'),
     updateConfig: (updates: Partial<AdminConfig>) =>

@@ -49,6 +49,7 @@ router.get('/', async (req: AuthenticatedRequest, res) => {
       .order('created_at', { ascending: false });
 
     if (status) query = query.eq('status', status);
+    else query = query.neq('status', 'historical');
     if (from) query = query.gte('date', `${from}T00:00:00.000Z`);
     if (to) query = query.lte('date', `${to}T23:59:59.999Z`);
 

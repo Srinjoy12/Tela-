@@ -9,6 +9,7 @@ import adminRoutes from './admin.routes';
 import supplierRoutes from './suppliers.routes';
 import purchaseRoutes from './purchases.routes';
 import downloadRoutes from './download.routes';
+import historicalRoutes from './historical.routes';
 import { requireAuth, requireShop, requireAdmin } from '../middleware/auth.middleware';
 
 const apiRouter = Router();
@@ -36,6 +37,7 @@ apiRouter.use('/bills', requireAuth, requireShop, billRoutes);
 apiRouter.use('/customers', requireAuth, requireShop, customerRoutes);
 apiRouter.use('/goals', requireAuth, requireShop, goalRoutes);
 apiRouter.use('/reports', requireAuth, requireShop, reportRoutes);
+apiRouter.use('/historical', requireAuth, requireShop, historicalRoutes);
 apiRouter.use('/admin', requireAuth, requireAdmin, adminRoutes);
 
 export default apiRouter;

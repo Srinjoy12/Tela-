@@ -7,13 +7,14 @@ import {
   BarChartIcon as FileBarChart,
   PersonIcon as Users,
   ExitIcon as LogOut,
-  ThickArrowRightIcon as Truck
+  ThickArrowRightIcon as Truck,
+  TokensIcon as Archive
 } from '@radix-ui/react-icons';
 import { Button } from '../ui/button';
 import type { UserRole, Shop } from '../../types';
 
 
-export type NavTab = 'DASHBOARD' | 'PRODUCTS' | 'SUPPLIERS' | 'BILLING' | 'GOALS' | 'REPORTS' | 'CUSTOMERS';
+export type NavTab = 'DASHBOARD' | 'PRODUCTS' | 'SUPPLIERS' | 'BILLING' | 'GOALS' | 'REPORTS' | 'CUSTOMERS' | 'HISTORICAL';
 
 interface NavbarProps {
   activeTab: NavTab;
@@ -86,6 +87,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           { id: 'GOALS', label: 'Goals', icon: Target },
           { id: 'REPORTS', label: 'Reports', icon: FileBarChart },
           { id: 'CUSTOMERS', label: 'Customers', icon: Users },
+          { id: 'HISTORICAL', label: 'Historical Data', icon: Archive },
         ].map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;

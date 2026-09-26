@@ -23,6 +23,7 @@ import { GoalsView } from './components/goals/GoalsView';
 import { ReportsView } from './components/reports/ReportsView';
 import { CustomersView } from './components/customers/CustomersView';
 import { SuppliersView } from './components/suppliers/SuppliersView';
+import { HistoricalView } from './components/dashboard/HistoricalView';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { PaywallModal } from './components/subscription/PaywallModal';
 import { AuthScreen } from './components/auth/AuthScreen';
@@ -563,6 +564,10 @@ export const App: React.FC = () => {
             onRecordPayment={handleRecordPayment}
             onAddCredit={handleAddCredit}
           />
+        )}
+
+        {activeTab === 'HISTORICAL' && (
+          <HistoricalView shopId={shop.id} />
         )}
       </main>
 
