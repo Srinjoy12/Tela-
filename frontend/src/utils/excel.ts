@@ -11,6 +11,8 @@ export interface ColumnMapping {
   alertLevel: string;
   supplier: string;
   colorNotes: string;
+  historicalSoldQuantity: string;
+  historicalSoldPrice: string;
 }
 
 export interface ParsedRowResult {
@@ -31,6 +33,8 @@ export const DEFAULT_COLUMN_MAPPING: ColumnMapping = {
   alertLevel: 'Low Stock Alert',
   supplier: 'Supplier',
   colorNotes: 'Color / Notes',
+  historicalSoldQuantity: 'Already Sold Qty (Past)',
+  historicalSoldPrice: 'Sold Price (Past)',
 };
 
 /**
@@ -284,6 +288,8 @@ export function guessColumnMapping(headers: string[]): ColumnMapping {
     alertLevel: '',
     supplier: '',
     colorNotes: '',
+    historicalSoldQuantity: '',
+    historicalSoldPrice: '',
   };
 
   const findBest = (patterns: string[], excludePatterns: string[] = []): string => {
@@ -347,6 +353,16 @@ export function guessColumnMapping(headers: string[]): ColumnMapping {
   mapping.colorNotes = findBest(
     ['Color / Notes', 'Color', 'Notes', 'Remarks', 'Description', 'Details', 'Colour'],
     ['name', 'product']
+  );
+
+  mapping.historicalSoldQuantity = findBest(
+    ['Already Sold Qty', 'Sold Quantity', 'Past Sold Qty', 'Sold Qty', 'Sold'],
+    []
+  );
+
+  mapping.historicalSoldPrice = findBest(
+    ['Sold Price', 'Historical Sold Price', 'Past Sold Price', 'Already Sold Price', 'Sale Amount'],
+    ['cost', 'purchase']
   );
 
   return mapping;
@@ -513,6 +529,9 @@ export function validateImportRows(
     const costPrice = parseCleanNumber(row[mapping.costPrice], 0);
     const sellingPrice = parseCleanNumber(row[mapping.sellingPrice], 0);
     const alertLevel = parseCleanNumber(row[mapping.alertLevel], 2);
+    
+    const historicalSoldQuantity = parseCleanNumber(row[mapping.historicalSoldQuantity], 0);
+    const historicalSoldPrice = parseCleanNumber(row[mapping.historicalSoldPrice], 0);
 
     if (!name) {
       errors.push('Product Name is required.');
@@ -553,6 +572,8 @@ export function validateImportRows(
         alertLevel: isNaN(alertLevel) ? 2 : alertLevel,
         supplier,
         colorNotes,
+        historicalSoldQuantity: isNaN(historicalSoldQuantity) ? 0 : historicalSoldQuantity,
+        historicalSoldPrice: isNaN(historicalSoldPrice) ? 0 : historicalSoldPrice,
         archived: false,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),

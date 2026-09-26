@@ -29,7 +29,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   const [category, setCategory] = useState('Silk');
   const [quantity, setQuantity] = useState<number>(1);
   const [costPrice, setCostPrice] = useState<number>(0);
-  const [sellingPrice, setSellingPrice] = useState<number>(0);
+  const [markupPercent, setMarkupPercent] = useState<number>(40);
   const [alertLevel, setAlertLevel] = useState<number>(2);
   const [supplier, setSupplier] = useState('');
   const [supplierId, setSupplierId] = useState('');
@@ -47,7 +47,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
       setCategory(productToEdit.category);
       setQuantity(productToEdit.quantity);
       setCostPrice(productToEdit.costPrice);
-      setSellingPrice(productToEdit.sellingPrice);
+      const margin = productToEdit.costPrice > 0 ? ((productToEdit.sellingPrice - productToEdit.costPrice) / productToEdit.costPrice) * 100 : 40;
+      setMarkupPercent(Math.round(margin / 10) * 10 || 10);
       setAlertLevel(productToEdit.alertLevel);
       setSupplier(productToEdit.supplier || '');
       setSupplierId(productToEdit.supplierId || '');
@@ -65,7 +66,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
       setCategory('Silk');
       setQuantity(5);
       setCostPrice(2000);
-      setSellingPrice(2800);
+      setMarkupPercent(40);
       setAlertLevel(2);
       setSupplier('');
       setSupplierId('');
@@ -76,8 +77,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   }, [productToEdit, isOpen, suppliers]);
 
   // Real-time calculations
+  const sellingPrice = Math.round(costPrice * (1 + markupPercent / 100));
   const expectedProfit = sellingPrice - costPrice;
-  const marginPercent = sellingPrice > 0 ? Math.round((expectedProfit / sellingPrice) * 100) : 0;
 
   // Handle Photo File selection
   const handlePhotoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -236,15 +237,17 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               <span className="text-muted" style={{ fontSize: '0.75rem' }}>Weaver purchase or production cost</span>
             </div>
             <div>
-              <label className="bw-label">Selling / Retail Price (₹)</label>
-              <input
-                type="number"
-                min="0"
-                className="bw-input mono"
-                value={sellingPrice}
-                onChange={(e) => setSellingPrice(Math.max(0, parseFloat(e.target.value) || 0))}
-              />
-              <span className="text-muted" style={{ fontSize: '0.75rem' }}>Listed counter price</span>
+              <label className="bw-label">Profit Markup Margin (%) *</label>
+              <select
+                className="bw-select mono"
+                value={markupPercent}
+                onChange={(e) => setMarkupPercent(Number(e.target.value))}
+              >
+                {[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 150, 200].map(val => (
+                  <option key={val} value={val}>{val}% Margin</option>
+                ))}
+              </select>
+              <span className="text-muted" style={{ fontSize: '0.75rem' }}>Auto-calculates selling price</span>
             </div>
           </div>
 
@@ -264,18 +267,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 Auto Margin Calculation
               </div>
               <div style={{ fontSize: '0.85rem' }}>
-                Expected Profit: <strong className="mono">₹{expectedProfit.toLocaleString('en-IN')}</strong> / piece
+                Selling Price: <strong className="mono">₹{sellingPrice.toLocaleString('en-IN')}</strong> / piece
               </div>
             </div>
             <div className="text-right">
               <span className="bw-badge bw-badge-black mono" style={{ fontSize: '0.9rem', padding: '0.2rem 0.5rem' }}>
-                {marginPercent}% Margin
+                +₹{expectedProfit.toLocaleString('en-IN')} Profit
               </span>
-              {expectedProfit < 0 && (
-                <div style={{ fontSize: '0.75rem', color: '#FFF', fontWeight: 700, marginTop: '2px' }}>
-                  WARNING: Below Cost Price
-                </div>
-              )}
             </div>
           </div>
         </div>
