@@ -304,12 +304,12 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
   return (
     <div className="flex flex-col gap-4">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1>Suppliers & Purchases</h1>
 
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Button onClick={() => handleOpenPurchaseModal()} type="secondary" prefix={<PackageCheck width={16} height={16} />}>
             New Purchase Order
           </Button>
@@ -362,7 +362,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
       </div>
 
       {/* Sub Tabs */}
-      <div className="flex gap-2" style={{ borderBottom: '2px solid #000', paddingBottom: '0.5rem' }}>
+      <div className="flex flex-wrap gap-2" style={{ borderBottom: '2px solid #000', paddingBottom: '0.5rem' }}>
         <Button
           onClick={() => setActiveTab('SUPPLIERS')}
           type={activeTab === 'SUPPLIERS' ? 'primary' : 'secondary'}
@@ -522,7 +522,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
       {activeTab === 'PURCHASES' && (
         <div className="flex flex-col gap-3">
           {/* Filter Bar */}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <span className="text-muted" style={{ fontSize: '0.85rem' }}>Filter by Supplier:</span>
               <select
@@ -543,7 +543,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
               </select>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <Button
                 onClick={() => setPurchasePage((p) => Math.max(1, p - 1))}
                 disabled={purchasePage <= 1}
@@ -691,7 +691,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="bw-label">Phone Number</label>
               <input

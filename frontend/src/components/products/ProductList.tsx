@@ -360,7 +360,7 @@ export const ProductList: React.FC<ProductListProps> = ({
       {/* Pagination Controls */}
       {filteredProducts.length > 0 && (
         <div
-          className="bw-box-subtle flex items-center justify-between"
+          className="bw-box-subtle flex flex-col md:flex-row md:items-center justify-between gap-3"
           style={{ padding: '0.6rem 1rem', border: '1.5px solid #000' }}
         >
           <div className="flex items-center gap-2" style={{ fontSize: '0.85rem' }}>
@@ -371,7 +371,7 @@ export const ProductList: React.FC<ProductListProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-1" style={{ fontSize: '0.8rem' }}>
               <span className="text-muted">Rows per page:</span>
               <select

@@ -217,7 +217,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
       </div>
 
       {/* Search Bar & Pagination Controls */}
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div className="bw-box-subtle flex-1 flex items-center gap-2">
           <Search width={16} height={16} className="text-muted" />
           <input
@@ -243,7 +243,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
         </div>
 
         {totalPages > 1 && (
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <Button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage <= 1 || loadingList}
