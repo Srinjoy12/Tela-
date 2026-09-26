@@ -53,6 +53,7 @@ p, label {
 .mono {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
+  font-weight: 500 !important;
 }
 
 /* Utilitarian Borders & Containers */
