@@ -9,6 +9,8 @@ import {
   ChevronRightIcon as ChevronRight
 } from '@radix-ui/react-icons';
 import { Button } from '../ui/button';
+import { DotmSquare4 } from '../ui/dotm-square-4';
+import { DynamicLoadingText } from '../ui/dynamic-loading-text';
 import { BWModal } from '../common/BWModal';
 import type { Customer, CustomerTransaction } from '../../types';
 import { api } from '../../../../api/client/client';
@@ -285,7 +287,10 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
             {loadingList ? (
               <tr>
                 <td colSpan={5} className="text-center" style={{ padding: '2rem' }}>
-                  Loading customer ledger...
+                  <div className="flex flex-col items-center gap-3">
+                    <DotmSquare4 size={32} dotSize={4} speed={1.35} />
+                    <DynamicLoadingText phrases={['Loading customer ledger...', 'Checking credit balances...', 'Fetching past transactions...', 'Opening the registers...']} />
+                  </div>
                 </td>
               </tr>
             ) : displayedCustomers.length === 0 ? (
@@ -493,8 +498,9 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
             </div>
 
             {loadingHistory ? (
-              <div className="text-center" style={{ padding: '2rem' }}>
-                <span className="mono">Loading transaction audit ledger...</span>
+              <div className="flex flex-col items-center text-center gap-3" style={{ padding: '2rem' }}>
+                <DotmSquare4 size={32} dotSize={4} speed={1.35} />
+                <span className="mono"><DynamicLoadingText phrases={['Loading transaction audit ledger...', 'Finding past payments...', 'Verifying old bills...', 'Unfolding the ledger...']} /></span>
               </div>
             ) : historyTransactions.length === 0 ? (
               <div className="text-center text-muted" style={{ padding: '2rem' }}>

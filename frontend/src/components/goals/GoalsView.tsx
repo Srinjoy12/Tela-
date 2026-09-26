@@ -1,6 +1,8 @@
 import { formatINR } from '../../utils/i18n';
 import React, { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
+import { DotmSquare4 } from '../ui/dotm-square-4';
+import { DynamicLoadingText } from '../ui/dynamic-loading-text';
 import {
   TargetIcon as Target,
   ExclamationTriangleIcon as AlertCircle,
@@ -295,7 +297,10 @@ export const GoalsView: React.FC<GoalsViewProps> = ({
               {loadingHistory ? (
                 <tr>
                   <td colSpan={7} className="text-center" style={{ padding: '2rem' }}>
-                    Loading monthly history...
+                    <div className="flex flex-col items-center gap-3">
+                      <DotmSquare4 size={32} dotSize={4} speed={1.35} />
+                      <DynamicLoadingText phrases={['Loading monthly history...', 'Fetching old goals...', 'Retrieving hit/miss records...', 'Unfolding past targets...']} />
+                    </div>
                   </td>
                 </tr>
               ) : history.length === 0 ? (

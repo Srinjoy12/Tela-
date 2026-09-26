@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Download, Upload, AlertCircle, CheckCircle, Activity } from 'lucide-react';
+import { Download, Upload, AlertCircle, CheckCircle } from 'lucide-react';
 import { api } from '../../../../api/client/client';
 import { readExcelFile, downloadHistoricalTemplate } from '../../utils/excel';
 import { Button } from '../ui/button';
+import { DotmSquare4 } from '../ui/dotm-square-4';
+import { DynamicLoadingText } from '../ui/dynamic-loading-text';
 import { BWStatCard } from '../common/BWStatCard';
 import { formatINR } from '../../utils/i18n';
 
@@ -100,9 +102,9 @@ export function HistoricalView({ shopId }: { shopId: string }) {
   if (loading) {
     return (
       <div className="flex h-64 items-center justify-center">
-        <div className="flex items-center gap-2">
-          <Activity className="h-5 w-5 animate-spin" />
-          <span>Loading historical data...</span>
+        <div className="flex flex-col items-center gap-3">
+          <DotmSquare4 size={40} dotSize={5} speed={1.35} />
+          <span><DynamicLoadingText phrases={['Loading historical data...', 'Parsing old records...', 'Digging through the archives...', 'Formatting history...', 'Weaving past data...']} /></span>
         </div>
       </div>
     );

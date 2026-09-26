@@ -17,6 +17,8 @@ import { sanitizeCellFormula, saveWorkbookAsFile } from '../../utils/excel';
 import { api } from '../../../../api/client/client';
 import * as XLSX from 'xlsx';
 import { Button } from '../ui/button';
+import { DotmSquare4 } from '../ui/dotm-square-4';
+import { DynamicLoadingText } from '../ui/dynamic-loading-text';
 
 interface ReportsViewProps {
   summary: MonthEndSummary;
@@ -363,8 +365,9 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
           )}
 
           {rangeLoading ? (
-            <div className="bw-box text-center" style={{ padding: '3rem' }}>
-              <div className="mono" style={{ fontWeight: 700 }}>Calculating metrics for {rangeFrom} to {rangeTo}...</div>
+            <div className="bw-box flex flex-col items-center justify-center gap-4" style={{ padding: '3rem' }}>
+              <DotmSquare4 size={36} dotSize={4} speed={1.35} />
+              <div className="mono" style={{ fontWeight: 700 }}><DynamicLoadingText phrases={[`Calculating metrics for ${rangeFrom} to ${rangeTo}...`, 'Analyzing revenue patterns...', 'Crunching the numbers...', 'Formatting range report...', 'Weaving the data threads...']} /></div>
             </div>
           ) : rangeReport ? (
             <div className="flex flex-col gap-4">
@@ -481,8 +484,9 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
           )}
 
           {compareLoading ? (
-            <div className="bw-box text-center" style={{ padding: '3rem' }}>
-              <div className="mono" style={{ fontWeight: 700 }}>Calculating month-on-month deltas...</div>
+            <div className="bw-box flex flex-col items-center justify-center gap-4" style={{ padding: '3rem' }}>
+              <DotmSquare4 size={36} dotSize={4} speed={1.35} />
+              <div className="mono" style={{ fontWeight: 700 }}><DynamicLoadingText phrases={['Calculating month-on-month deltas...', 'Comparing performance...', 'Measuring the yardage...', 'Spotting the trends...', 'Generating insights...']} /></div>
             </div>
           ) : comparison ? (
             <div className="flex flex-col gap-4">

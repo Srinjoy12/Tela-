@@ -13,6 +13,8 @@ import {
 } from '@radix-ui/react-icons';
 import { BWModal } from '../common/BWModal';
 import { Button } from '../ui/button';
+import { DotmSquare4 } from '../ui/dotm-square-4';
+import { DynamicLoadingText } from '../ui/dynamic-loading-text';
 import type { Supplier, PurchaseOrder, Product } from '../../types';
 import { api } from '../../../../api/client/client';
 import { formatINR, formatDate } from '../../utils/i18n';
@@ -589,7 +591,10 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                 {loadingPurchases ? (
                   <tr>
                     <td colSpan={10} className="text-center" style={{ padding: '2rem' }}>
-                      Loading purchase orders...
+                      <div className="flex flex-col items-center gap-3">
+                        <DotmSquare4 size={32} dotSize={4} speed={1.35} />
+                        <DynamicLoadingText phrases={['Loading purchase orders...', 'Fetching supplier records...', 'Gathering the invoices...', 'Counting the fabrics...']} />
+                      </div>
                     </td>
                   </tr>
                 ) : purchases.length === 0 ? (

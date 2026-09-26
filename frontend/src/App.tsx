@@ -27,6 +27,8 @@ import { HistoricalView } from './components/dashboard/HistoricalView';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { PaywallModal } from './components/subscription/PaywallModal';
 import { AuthScreen } from './components/auth/AuthScreen';
+import { DotmSquare4 } from './components/ui/dotm-square-4';
+import { DynamicLoadingText } from './components/ui/dynamic-loading-text';
 import { onAuthStateChange, signOutUser, getSupabaseSession, isSupabaseClientConfigured } from './utils/supabase';
 
 export const App: React.FC = () => {
@@ -422,8 +424,11 @@ export const App: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center" style={{ height: '100vh', background: '#FFF' }}>
-        <div className="mono text-bold" style={{ fontSize: '1.25rem' }}>
-          LOADING TELA SYSTEM...
+        <div className="flex flex-col items-center gap-4">
+          <DotmSquare4 size={48} dotSize={6} speed={1.35} />
+          <div className="mono font-bold" style={{ fontSize: '1.25rem' }}>
+            <DynamicLoadingText />
+          </div>
         </div>
       </div>
     );
