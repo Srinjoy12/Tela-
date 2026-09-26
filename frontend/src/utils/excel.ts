@@ -142,6 +142,13 @@ export function downloadExcelTemplate() {
 }
 
 /**
+ * 1.5 Download Historical Excel Template
+ */
+export function downloadHistoricalTemplate() {
+  triggerHttpDownload('/api/downloads/historical-template', 'Historical_Data_Template.xlsx');
+}
+
+/**
  * 2. Download Plain CSV Template
  */
 export function downloadCsvTemplate() {

@@ -101,6 +101,64 @@ router.get('/template', (_req, res) => {
   }
 });
 
+function createHistoricalTemplateWorkbook(): XLSX.WorkBook {
+  const templateRows = [
+    {
+      'Item Name': 'Legacy Cotton Saree 2023',
+      'Quantity': 50,
+      'Cost Price': 800,
+      'Selling Price': 1200,
+      'Date Sold': '2023-05-12'
+    },
+    {
+      'Item Name': 'Bridal Silk Saree 2024',
+      'Quantity': 5,
+      'Cost Price': 4500,
+      'Selling Price': 7000,
+      'Date Sold': '2024-01-20'
+    },
+    {
+      'Item Name': 'Summer Printed Georgette',
+      'Quantity': 120,
+      'Cost Price': 450,
+      'Selling Price': 800,
+      'Date Sold': '2024-03-15'
+    }
+  ];
+
+  const worksheet = XLSX.utils.json_to_sheet(templateRows);
+  worksheet['!cols'] = [
+    { wch: 35 },
+    { wch: 12 },
+    { wch: 14 },
+    { wch: 16 },
+    { wch: 14 },
+  ];
+
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Historical_Template');
+  return workbook;
+}
+
+/**
+ * GET /api/downloads/historical-template
+ * Native HTTP file download for Historical Excel Template.
+ */
+router.get('/historical-template', (_req, res) => {
+  try {
+    const workbook = createHistoricalTemplateWorkbook();
+    const buffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename="Historical_Data_Template.xlsx"');
+    res.setHeader('Content-Length', buffer.length.toString());
+    res.send(buffer);
+  } catch (err: any) {
+    console.error('Error generating historical template download:', err);
+    res.status(500).send('Failed to generate template');
+  }
+});
+
 /**
  * GET /api/downloads/template-csv
  * Native HTTP file download for CSV Template.

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Download, Upload, AlertCircle, CheckCircle, Activity } from 'lucide-react';
 import { api } from '../../../../api/client/client';
-import { readExcelFile, downloadExcelTemplate } from '../../utils/excel';
+import { readExcelFile, downloadHistoricalTemplate } from '../../utils/excel';
 import { Button } from '../ui/button';
 import { BWStatCard } from '../common/BWStatCard';
 import { formatINR } from '../../utils/i18n';
@@ -120,7 +120,7 @@ export function HistoricalView({ shopId }: { shopId: string }) {
         
         <div className="flex flex-wrap items-center gap-2">
           <Button 
-            onClick={downloadExcelTemplate}
+            onClick={downloadHistoricalTemplate}
             type="secondary"
             prefix={<Download width={15} height={15} />}
           >
