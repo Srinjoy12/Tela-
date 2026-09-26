@@ -37,7 +37,6 @@ export const BillReceiptModal: React.FC<BillReceiptModalProps> = ({
       .join('%0A');
 
     const message = `*INVOICE: ${shop?.name || 'Tela'}*%0A` +
-      `Bill No: ${bill.billNo}%0A` +
       `Date: ${new Date(bill.date).toLocaleDateString('en-IN')}%0A` +
       `Customer: ${bill.customerName || 'Valued Customer'}%0A` +
       `--------------------------------%0A` +

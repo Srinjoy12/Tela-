@@ -16,6 +16,7 @@ interface BillingViewProps {
   products: Product[];
   userRole: UserRole;
   shopId: string;
+  shopName: string;
   onSaveBill: (billData: Omit<Bill, 'id' | 'billNo' | 'createdAt'>) => Promise<Bill>;
 }
 
@@ -23,6 +24,7 @@ export const BillingView: React.FC<BillingViewProps> = ({
   products,
   userRole,
   shopId,
+  shopName,
   onSaveBill,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -448,7 +450,7 @@ export const BillingView: React.FC<BillingViewProps> = ({
             {/* Payment Mode (BL-6) */}
             <div>
               <label className="bw-label">Payment Mode</label>
-              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+              <div className="flex flex-wrap gap-2">
                 {(['Cash', 'UPI', 'Card', 'Credit', 'Part'] as PaymentMode[]).map((mode) => (
                   <Button
                     key={mode}
@@ -570,8 +572,22 @@ export const BillingView: React.FC<BillingViewProps> = ({
           <div className="flex gap-2">
             <Button
               onClick={() => {
-                const message = `*INVOICE: Tela*%0ABill: ${completedBill.billNo}%0ATotal: ${formatINR(completedBill.total)}%0AThank you!`;
-                window.open(`https://wa.me/?text=${message}`, '_blank');
+                const itemsSummary = completedBill.items
+                  .map((item, i) => `${i + 1}. ${item.productName} (${item.quantity} pc) - ₹${item.soldPrice * item.quantity}`)
+                  .join('%0A');
+
+                const message = `*INVOICE: ${shopName || 'Tela'}*%0A` +
+                  `Date: ${new Date(completedBill.date).toLocaleDateString('en-IN')}%0A` +
+                  `Customer: ${completedBill.customerName || 'Valued Customer'}%0A` +
+                  `--------------------------------%0A` +
+                  `${itemsSummary}%0A` +
+                  `--------------------------------%0A` +
+                  `*Total Paid: ₹${completedBill.total.toLocaleString('en-IN')}* (${completedBill.paymentMode})%0A%0A` +
+                  `Thank you for shopping with us!`;
+
+                const cleanPhone = completedBill.customerPhone?.replace(/[^0-9]/g, '') || '';
+                const phonePath = cleanPhone ? `${cleanPhone.length === 10 ? '91' + cleanPhone : cleanPhone}` : '';
+                window.open(`https://wa.me/${phonePath}?text=${message}`, '_blank');
               }}
               type="secondary"
               style={{ background: '#FFF', color: '#000' }}

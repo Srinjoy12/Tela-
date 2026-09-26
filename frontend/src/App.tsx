@@ -536,6 +536,7 @@ export const App: React.FC = () => {
             products={products}
             userRole={userRole}
             shopId={shop.id}
+            shopName={shop.name}
             onSaveBill={handleSaveBill}
           />
         )}
