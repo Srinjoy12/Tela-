@@ -212,7 +212,7 @@ export const ExcelUploadModal: React.FC<ExcelUploadModalProps> = ({
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-3 bw-box-subtle">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bw-box-subtle">
             <div>
               <label className="bw-label">Product Name / Design *</label>
               <select
@@ -430,7 +430,7 @@ export const ExcelUploadModal: React.FC<ExcelUploadModalProps> = ({
         <div className="flex flex-col gap-4 text-center" style={{ padding: '1rem' }}>
           <FileSpreadsheet width={48} height={48} style={{ margin: '0 auto' }} />
           <h2>Import Successful!</h2>
-          <div className="bw-box-subtle grid grid-cols-3 gap-4" style={{ padding: '1.5rem', textAlign: 'center' }}>
+          <div className="bw-box-subtle grid grid-cols-1 sm:grid-cols-3 gap-4" style={{ padding: '1.5rem', textAlign: 'center' }}>
             <div>
               <div className="mono" style={{ fontSize: '1.75rem', fontWeight: 800 }}>{importSummary.added}</div>
               <div className="bw-label">New Products Added</div>

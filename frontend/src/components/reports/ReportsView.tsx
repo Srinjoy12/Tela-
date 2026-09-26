@@ -553,7 +553,7 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
               </div>
 
               {/* Side-by-Side Detailed Breakdown Table */}
-              <div style={{ border: '1.5px solid #000' }}>
+              <div style={{ border: '1.5px solid #000', overflowX: 'auto' }}>
                 <table className="bw-table">
                   <thead>
                     <tr>
@@ -655,7 +655,7 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
               All products are adequately stocked above alert thresholds.
             </div>
           ) : (
-            <div style={{ border: '1.5px solid #000' }}>
+            <div style={{ border: '1.5px solid #000', overflowX: 'auto' }}>
               <table className="bw-table">
                 <thead>
                   <tr>
@@ -738,7 +738,7 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
               No dead stock detected! All sarees have recent sales.
             </div>
           ) : (
-            <div style={{ border: '1.5px solid #000' }}>
+            <div style={{ border: '1.5px solid #000', overflowX: 'auto' }}>
               <table className="bw-table">
                 <thead>
                   <tr>

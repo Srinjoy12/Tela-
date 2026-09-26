@@ -180,7 +180,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       </div>
 
       {/* FLEET MONITORING KPIS */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="bw-box">
           <span className="bw-label">Registered Shops</span>
           <div className="mono" style={{ fontSize: '1.75rem', fontWeight: 800 }}>
@@ -226,7 +226,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
 
         {/* Add User Form */}
-        <form onSubmit={handleAddWhitelist} className="bw-box-subtle grid grid-cols-4 gap-3 items-end">
+        <form onSubmit={handleAddWhitelist} className="bw-box-subtle grid grid-cols-1 sm:grid-cols-4 gap-3 items-end">
           <div>
             <label className="bw-label">Mobile Number or Email *</label>
             <input
@@ -266,7 +266,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </form>
 
         {/* Whitelist Table */}
-        <div style={{ border: '1.5px solid #000' }}>
+        <div style={{ border: '1.5px solid #000', overflowX: 'auto' }}>
           <table className="bw-table">
             <thead>
               <tr>
@@ -344,7 +344,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       {/* REGISTERED SHOPS DIRECTORY */}
       <div className="bw-box flex flex-col gap-3">
         <h3>Active Shops Fleet Directory</h3>
-        <div style={{ border: '1.5px solid #000' }}>
+        <div style={{ border: '1.5px solid #000', overflowX: 'auto' }}>
           <table className="bw-table">
             <thead>
               <tr>

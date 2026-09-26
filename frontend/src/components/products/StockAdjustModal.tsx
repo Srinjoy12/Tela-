@@ -78,7 +78,7 @@ export const StockAdjustModal: React.FC<StockAdjustModalProps> = ({
         </div>
 
         {/* Direction Switch */}
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <Button
             htmlType="button"
             type={actionType === 'remove' ? 'primary' : 'secondary'}

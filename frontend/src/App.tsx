@@ -431,7 +431,7 @@ export const App: React.FC = () => {
   // 1. ADMIN URL ROUTE HANDLER (comes when URL has #admin or /admin)
   if (isAdminRoute && adminConfig) {
     return (
-      <div style={{ minHeight: '100vh', background: '#FFF', padding: '1.5rem' }}>
+      <div className="min-h-screen bg-white px-3 py-4 sm:px-6 sm:py-6">
         <AdminDashboard
           adminConfig={adminConfig}
           allShops={allShops}
@@ -477,7 +477,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <main style={{ flex: 1, padding: '1.5rem', maxWidth: '1440px', width: '100%', margin: '0 auto' }}>
+      <main className="flex-1 w-full max-w-[1440px] mx-auto px-3 py-4 sm:px-6 sm:py-6">
         {activeTab === 'DASHBOARD' && (
           <DashboardView
             products={products}

@@ -192,7 +192,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
       </div>
 
       {/* Summary Box */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="bw-box">
           <span className="bw-label">Total Outstanding Credit (Udhaar)</span>
           <div className="mono" style={{ fontSize: '1.75rem', fontWeight: 800 }}>
@@ -270,7 +270,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
       </div>
 
       {/* Customer List Table */}
-      <div style={{ border: '1.5px solid #000' }}>
+      <div style={{ border: '1.5px solid #000', overflowX: 'auto' }}>
         <table className="bw-table">
           <thead>
             <tr>
@@ -501,7 +501,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                 No past transactions recorded for this customer yet.
               </div>
             ) : (
-              <div style={{ border: '1.5px solid #000', maxHeight: '350px', overflowY: 'auto' }}>
+              <div style={{ border: '1.5px solid #000', maxHeight: '350px', overflowY: 'auto', overflowX: 'auto' }}>
                 <table className="bw-table">
                   <thead>
                     <tr>

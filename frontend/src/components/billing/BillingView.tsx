@@ -258,7 +258,7 @@ export const BillingView: React.FC<BillingViewProps> = ({
           </div>
 
           {/* Line Items Table */}
-          <div style={{ border: '1.5px solid #000' }}>
+          <div style={{ border: '1.5px solid #000', overflowX: 'auto' }}>
             <table className="bw-table">
               <thead>
                 <tr>
@@ -448,7 +448,7 @@ export const BillingView: React.FC<BillingViewProps> = ({
             {/* Payment Mode (BL-6) */}
             <div>
               <label className="bw-label">Payment Mode</label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                 {(['Cash', 'UPI', 'Card', 'Credit', 'Part'] as PaymentMode[]).map((mode) => (
                   <Button
                     key={mode}

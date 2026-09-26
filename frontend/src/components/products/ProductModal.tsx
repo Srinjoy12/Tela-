@@ -164,7 +164,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
     >
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         {/* Name & SKU */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label className="bw-label">Design / Product Name *</label>
             <input
@@ -189,7 +189,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
         </div>
 
         {/* Category & Quantity */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label className="bw-label">Fabric / Category</label>
             <select
@@ -223,7 +223,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
         {/* Cost & Selling Price Box */}
         <div className="bw-box-subtle">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="bw-label">Purchase / Cost Price (₹)</label>
               <input
@@ -281,7 +281,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
         </div>
 
         {/* Low stock alert & Supplier */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label className="bw-label">Low Stock Alert Level</label>
             <input

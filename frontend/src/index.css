@@ -42,9 +42,13 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
-h1 { font-size: 1.75rem; }
+h1 { font-size: 1.5rem; line-height: 1.2; margin-bottom: 0.25rem; }
 h2 { font-size: 1.35rem; }
 h3 { font-size: 1.15rem; }
+
+@media (min-width: 640px) {
+  h1 { font-size: 1.75rem; }
+}
 
 p, label {
   color: var(--text-primary);

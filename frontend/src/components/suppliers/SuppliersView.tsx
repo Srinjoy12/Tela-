@@ -320,7 +320,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
       </div>
 
       {/* Overview Metric Boxes */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="bw-box">
           <span className="bw-label">Active Suppliers</span>
           <div className="mono" style={{ fontSize: '1.5rem', fontWeight: 800 }}>

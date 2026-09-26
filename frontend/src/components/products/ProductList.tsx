@@ -113,7 +113,7 @@ export const ProductList: React.FC<ProductListProps> = ({
       </div>
 
       {/* Aggregated Stock Summary Cards (PM-3) */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="bw-box">
           <span className="bw-label">Total Stock Count</span>
           <div className="mono" style={{ fontSize: '1.5rem', fontWeight: 800 }}>

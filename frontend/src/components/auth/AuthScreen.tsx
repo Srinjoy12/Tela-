@@ -334,7 +334,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
         {/* CREATE ACCOUNT FORM */}
         {mode === 'CREATE_ACCOUNT' && (
           <form onSubmit={handleCreateAccount} className="bw-box flex flex-col gap-4">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="bw-label">Shop / Business Name *</label>
                 <input
@@ -360,7 +360,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="bw-label">Email Address *</label>
                 <input
