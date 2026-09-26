@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Archive, Upload, AlertCircle, CheckCircle, Activity } from 'lucide-react';
+import { Download, Upload, AlertCircle, CheckCircle, Activity } from 'lucide-react';
 import { api } from '../../../../api/client/client';
-import { readExcelFile } from '../../utils/excel';
+import { readExcelFile, downloadExcelTemplate } from '../../utils/excel';
 import { Button } from '../ui/button';
 import { BWStatCard } from '../common/BWStatCard';
 import { formatINR } from '../../utils/i18n';
@@ -109,18 +109,24 @@ export function HistoricalView({ shopId }: { shopId: string }) {
   }
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-black uppercase tracking-tight flex items-center gap-2">
-            <Archive className="h-6 w-6" /> Historical Performance
-          </h2>
+          <h1>Historical Performance</h1>
           <p className="text-sm text-gray-600 mt-1">
             Legacy business metrics from before app usage. These metrics do not affect current stock.
           </p>
         </div>
         
-        <div>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button 
+            onClick={downloadExcelTemplate}
+            type="secondary"
+            prefix={<Download width={15} height={15} />}
+          >
+            Download Template
+          </Button>
+
           <input
             type="file"
             accept=".xlsx, .xls, .csv"
@@ -131,10 +137,10 @@ export function HistoricalView({ shopId }: { shopId: string }) {
           <Button 
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading}
-            className="flex items-center gap-2"
+            type="primary"
+            prefix={<Upload width={15} height={15} />}
           >
-            <Upload className="h-4 w-4" />
-            {uploading ? 'Processing...' : 'Upload Past Excel Data'}
+            {uploading ? 'Processing...' : 'Upload Past Data'}
           </Button>
         </div>
       </div>
