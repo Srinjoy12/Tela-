@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Archive, Upload, TrendingUp, DollarSign, Package, AlertCircle, CheckCircle, Activity } from 'lucide-react';
+import { Archive, Upload, AlertCircle, CheckCircle, Activity } from 'lucide-react';
 import { api } from '../../../../api/client/client';
 import { readExcelFile } from '../../utils/excel';
 import { Button } from '../ui/button';
+import { BWStatCard } from '../common/BWStatCard';
+import { formatINR } from '../../utils/i18n';
 
 interface HistoricalStats {
   totalInvested: number;
@@ -152,40 +154,26 @@ export function HistoricalView({ shopId }: { shopId: string }) {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bw-card p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-sm tracking-widest uppercase text-gray-500">Total Invested</h3>
-            <DollarSign className="h-5 w-5" />
-          </div>
-          <p className="text-3xl font-black">₹{(stats?.totalInvested || 0).toLocaleString()}</p>
-        </div>
-
-        <div className="bw-card p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-sm tracking-widest uppercase text-gray-500">Total Sold</h3>
-            <TrendingUp className="h-5 w-5" />
-          </div>
-          <p className="text-3xl font-black">₹{(stats?.totalSales || 0).toLocaleString()}</p>
-        </div>
-
-        <div className="bw-card p-6 bg-black text-white">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-sm tracking-widest uppercase text-gray-400">Profit Gain</h3>
-            <TrendingUp className="h-5 w-5 text-green-400" />
-          </div>
-          <p className="text-3xl font-black text-green-400">₹{(stats?.totalProfit || 0).toLocaleString()}</p>
-        </div>
-
-        <div className="bw-card p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-sm tracking-widest uppercase text-gray-500">Pieces Sold</h3>
-            <Package className="h-5 w-5" />
-          </div>
-          <p className="text-3xl font-black">{(stats?.totalPieces || 0).toLocaleString()}</p>
-        </div>
+        <BWStatCard
+          label="TOTAL INVESTED"
+          value={formatINR(stats?.totalInvested || 0)}
+        />
+        <BWStatCard
+          label="TOTAL SOLD"
+          value={formatINR(stats?.totalSales || 0)}
+        />
+        <BWStatCard
+          label="PROFIT GAIN"
+          value={formatINR(stats?.totalProfit || 0)}
+          badgeType="black"
+        />
+        <BWStatCard
+          label="PIECES SOLD"
+          value={(stats?.totalPieces || 0).toLocaleString()}
+        />
       </div>
       
-      <div className="bw-card p-6 bg-gray-50">
+      <div className="bw-box p-6 bg-gray-50">
         <h3 className="font-bold text-lg mb-2">How to Upload Historical Data</h3>
         <ul className="list-disc pl-5 space-y-2 text-sm">
           <li>Create an Excel file with your past data (e.g., from the last 3-4 years).</li>
